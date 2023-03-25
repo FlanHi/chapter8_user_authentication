@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Hello <b><span class="text-info">{{ current_user.username }}</span></b></h1>
+
+    <h1>You properties <b><span class="text-info">{{ current_user.username }}:</h1>
+        <img src="{{ url_for('static', filename='images/property1.jpg') }}">
+        <img src="{{ url_for('static', filename='images/property2.jpg') }}">
+        <img src="{{ url_for('static', filename='images/property3.jpg') }}">
+
+
+{% endblock %}

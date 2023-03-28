@@ -1,7 +1,7 @@
 from app import app, db
 from app.models import User
 from flask_login import login_user, logout_user, login_required
-from flask import render_template, flash, redirect, url_for
+from flask import render_template, flash, redirect, url_for, request
 from app.forms import RegisterForm, LoginForm
 
 
@@ -21,6 +21,9 @@ def register():
         db.session.commit()
         flash(f'User {form.username.data} has been registered successfully')
         return redirect(url_for('login'))
+    elif request.method == 'POST' and not form.validate_on_submit():
+        flash('You need to fill this out.')
+        return redirect('/register')
     return render_template('register.html', title='Register', form=form)
 
 
@@ -42,4 +45,7 @@ def login():
         login_user(user, remember=form.remember_me.data)
         flash(f'Welcome {form.username.data}!')
         return redirect(url_for('index'))
+    elif request.method == 'POST' and not form.validate_on_submit():
+        flash('You need to fill this out.')
+        return redirect('/login')
     return render_template('login.html', title='Log In', form=form)
